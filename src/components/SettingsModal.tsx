@@ -50,6 +50,7 @@ export function SettingsModal({ open, onOpenChange, onSave }: Props) {
               onChange={e => setTokenState(e.target.value)}
               placeholder="Enter channel access token"
               type="password"
+              suppressHydrationWarning
             />
           </div>
           <div className="space-y-1">
@@ -59,6 +60,7 @@ export function SettingsModal({ open, onOpenChange, onSave }: Props) {
               onChange={e => setSecretState(e.target.value)}
               placeholder="Enter channel secret"
               type="password"
+              suppressHydrationWarning
             />
           </div>
         </div>
