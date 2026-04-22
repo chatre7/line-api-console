@@ -55,19 +55,18 @@ export function Sidebar({ endpoints, selectedId, spec, onSelectEndpoint, onSpecC
             <div className="text-xs text-gray-400">{endpoints.length} endpoints</div>
           </div>
         </div>
-        <div className="flex gap-1 mb-3">
-          {(['messaging', 'login'] as SpecName[]).map(s => (
-            <button
-              key={s}
-              onClick={() => onSpecChange(s)}
-              className={`text-xs px-2 py-1 rounded transition-colors ${
-                spec === s ? 'bg-gray-700 text-white' : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              {s === 'messaging' ? 'Messaging' : 'Login'}
-            </button>
-          ))}
-        </div>
+        <select
+          value={spec}
+          onChange={e => onSpecChange(e.target.value as SpecName)}
+          className="w-full text-xs bg-gray-800 border border-gray-700 text-gray-100 rounded px-2 py-1 mb-3"
+        >
+          <option value="messaging">Messaging API</option>
+          <option value="login">Login API</option>
+          <option value="insight">Insight API</option>
+          <option value="liff">LIFF API</option>
+          <option value="manage-audience">Manage Audience</option>
+          <option value="module">Module API</option>
+        </select>
         <div className="relative">
           <Search className="absolute left-2 top-2 h-3.5 w-3.5 text-gray-400" />
           <Input

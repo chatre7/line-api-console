@@ -13,10 +13,18 @@ import { getHistory, appendHistory } from '@/lib/storage'
 import type { Endpoint, HistoryEntry, ProxyRequest, ProxyResponse, SpecName } from '@/lib/types'
 import messagingSpec from '@/lib/specs/messaging.json'
 import loginSpec from '@/lib/specs/login.json'
+import insightSpec from '@/lib/specs/insight.json'
+import liffSpec from '@/lib/specs/liff.json'
+import manageAudienceSpec from '@/lib/specs/manage-audience.json'
+import moduleSpec from '@/lib/specs/module.json'
 
 const SPECS = {
   messaging: messagingSpec,
   login: loginSpec,
+  insight: insightSpec,
+  liff: liffSpec,
+  'manage-audience': manageAudienceSpec,
+  module: moduleSpec,
 } as const
 
 export default function ConsolePage() {

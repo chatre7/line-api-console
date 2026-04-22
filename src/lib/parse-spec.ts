@@ -25,7 +25,10 @@ type OpenApiSpec = {
 
 const METHODS: HttpMethod[] = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
 
-const GENERIC_TAGS = new Set(['messaging-api', 'messaging-api-blob', 'channel-access-token'])
+const GENERIC_TAGS = new Set([
+  'messaging-api', 'messaging-api-blob', 'channel-access-token',
+  'insight', 'liff', 'manage-audience', 'manage-audience-blob', 'line-module',
+])
 
 function deriveTag(path: string, tags?: string[]): string {
   const first = tags?.[0]

@@ -46,4 +46,4 @@ export type ProxyResponse = {
   durationMs: number
 }
 
-export type SpecName = "messaging" | "login"
+export type SpecName = "messaging" | "login" | "insight" | "liff" | "manage-audience" | "module"
