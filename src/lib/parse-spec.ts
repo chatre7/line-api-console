@@ -2,6 +2,8 @@ import type { Endpoint, HttpMethod, Parameter, RequestBody } from './types'
 
 type OpenApiOperation = {
   summary?: string
+  description?: string
+  operationId?: string
   tags?: string[]
   parameters?: Array<{
     name: string
@@ -22,6 +24,25 @@ type OpenApiSpec = {
 }
 
 const METHODS: HttpMethod[] = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+
+const GENERIC_TAGS = new Set(['messaging-api', 'messaging-api-blob', 'channel-access-token'])
+
+function deriveTag(path: string, tags?: string[]): string {
+  const first = tags?.[0]
+  if (first && !GENERIC_TAGS.has(first)) return first
+
+  const segments = path.split('/').filter(Boolean)
+  // /v2/bot/<resource>/... or /bot/<resource>/... → use resource segment
+  if (segments[0] === 'v2' && segments[1] === 'bot' && segments[2]) {
+    return segments[2].replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+  }
+  if (segments[0] === 'bot' && segments[1]) {
+    return segments[1].replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+  }
+  // /oauth2/... → "OAuth"
+  if (segments[0]?.startsWith('oauth')) return 'OAuth'
+  return first ?? 'Other'
+}
 
 export function parseSpec(spec: OpenApiSpec): Endpoint[] {
   const endpoints: Endpoint[] = []
@@ -49,12 +70,15 @@ export function parseSpec(spec: OpenApiSpec): Endpoint[] {
         }
       }
 
+      const summary = operation.summary ?? operation.description?.split('\n')[0] ?? path
+      const tag = deriveTag(path, operation.tags)
+
       endpoints.push({
         id: `${method}:${path}`,
         method,
         path,
-        summary: operation.summary ?? path,
-        tag: operation.tags?.[0] ?? 'Other',
+        summary,
+        tag,
         parameters,
         requestBody,
       })
