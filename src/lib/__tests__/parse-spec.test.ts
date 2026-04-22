@@ -103,6 +103,24 @@ describe('parseSpec', () => {
     expect(e.tag).toBe('OAuth')
   })
 
+  it('returns LIFF for /liff/ paths', () => {
+    const spec = { paths: { '/liff/v1/apps': { get: { tags: ['liff'], summary: 'Get apps' } } } }
+    const e = parseSpec(spec)[0]
+    expect(e.tag).toBe('LIFF')
+  })
+
+  it('splits camelCase resource into title case (audienceGroup → Audience Group)', () => {
+    const spec = { paths: { '/v2/bot/audienceGroup/list': { get: { tags: ['manage-audience'], summary: 'List' } } } }
+    const e = parseSpec(spec)[0]
+    expect(e.tag).toBe('Audience Group')
+  })
+
+  it('uses TAG_LABELS override for line-module tag', () => {
+    const spec = { paths: { '/v2/bot/chat/{chatId}/control/acquire': { post: { tags: ['line-module'], summary: 'Acquire' } } } }
+    const e = parseSpec(spec)[0]
+    expect(e.tag).toBe('Module')
+  })
+
   it('uses "Other" when tags absent and path is unrecognised', () => {
     const spec = { paths: { '/unknown/path': { get: { summary: 'X' } } } }
     const e = parseSpec(spec)[0]

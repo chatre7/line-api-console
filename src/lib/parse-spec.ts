@@ -30,19 +30,32 @@ const GENERIC_TAGS = new Set([
   'insight', 'liff', 'manage-audience', 'manage-audience-blob', 'line-module',
 ])
 
+// Generic tags that map directly to a display name (path-based grouping would fragment them)
+const TAG_LABELS: Record<string, string> = {
+  'line-module': 'Module',
+}
+
+function toTitleCase(str: string): string {
+  return str
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/-/g, ' ')
+    .trim()
+    .replace(/\b\w/g, c => c.toUpperCase())
+}
+
 function deriveTag(path: string, tags?: string[]): string {
   const first = tags?.[0]
   if (first && !GENERIC_TAGS.has(first)) return first
+  if (first && TAG_LABELS[first]) return TAG_LABELS[first]
 
   const segments = path.split('/').filter(Boolean)
-  // /v2/bot/<resource>/... or /bot/<resource>/... → use resource segment
   if (segments[0] === 'v2' && segments[1] === 'bot' && segments[2]) {
-    return segments[2].replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+    return toTitleCase(segments[2])
   }
   if (segments[0] === 'bot' && segments[1]) {
-    return segments[1].replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+    return toTitleCase(segments[1])
   }
-  // /oauth2/... → "OAuth"
+  if (segments[0] === 'liff') return 'LIFF'
   if (segments[0]?.startsWith('oauth')) return 'OAuth'
   return first ?? 'Other'
 }
