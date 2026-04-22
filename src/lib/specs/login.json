@@ -1,0 +1,18 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "LINE Login API", "version": "0.0.1" },
+  "paths": {
+    "/oauth2/v2.1/token": {
+      "post": {
+        "summary": "Issue access token",
+        "tags": ["OAuth"],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/x-www-form-urlencoded": { "schema": {} } }
+        },
+        "responses": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "LINE Messaging API", "version": "0.0.1" },
+  "paths": {
+    "/v2/bot/info": {
+      "get": {
+        "summary": "Get bot info",
+        "tags": ["Bot"],
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/v2/bot/message/push": {
+      "post": {
+        "summary": "Send push message",
+        "tags": ["Message"],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": {} } }
+        },
+        "responses": {}
+      }
+    }
+  }
+}
