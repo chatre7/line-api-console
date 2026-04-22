@@ -28,7 +28,7 @@ export type HistoryEntry = {
   id: string
   timestamp: number
   endpoint: { method: string; path: string; summary: string }
-  request: { url: string; headers: Record<string, string>; body: string }
+  request: { method: string; url: string; headers: Record<string, string>; body: string }
   response: { status: number; body: string; headers: Record<string, string>; durationMs: number }
 }
 

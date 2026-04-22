@@ -10,7 +10,7 @@ const makeEntry = (id: string): HistoryEntry => ({
   id,
   timestamp: Date.now(),
   endpoint: { method: 'GET', path: '/v2/bot/info', summary: 'Get bot info' },
-  request: { url: 'https://api.line.me/v2/bot/info', headers: {}, body: '' },
+  request: { method: 'GET', url: 'https://api.line.me/v2/bot/info', headers: {}, body: '' },
   response: { status: 200, body: '{}', headers: {}, durationMs: 100 },
 })
 
