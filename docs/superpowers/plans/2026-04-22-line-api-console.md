@@ -12,25 +12,27 @@
 
 ## File Map
 
+> **Note:** Project was scaffolded with `src/` directory. All source paths are under `src/`. Components use `@base-ui/react` (base-nova style) — same named exports as Radix-based shadcn, compatible with plan code.
+
 | File | Responsibility |
 |------|----------------|
-| `lib/types.ts` | Shared TypeScript types: `Endpoint`, `Parameter`, `RequestBody`, `HistoryEntry`, `ProxyRequest`, `ProxyResponse`, `SpecName` |
-| `lib/storage.ts` | localStorage read/write for token, secret, history |
-| `lib/parse-spec.ts` | Parse OpenAPI 3.x JSON → `Endpoint[]` |
-| `lib/curl.ts` | Generate cURL command string from request params |
-| `lib/specs/messaging.json` | LINE Messaging API OpenAPI 3.x spec (downloaded) |
-| `lib/specs/login.json` | LINE Login API OpenAPI 3.x spec (downloaded) |
-| `app/layout.tsx` | Root layout with font + metadata |
-| `app/page.tsx` | Main 3-panel console layout, wires all components, owns shared state |
-| `app/api/proxy/route.ts` | Next.js Route Handler that forwards requests to LINE API |
-| `components/Sidebar.tsx` | Endpoint list with search, collapsible groups, spec switcher, settings button |
-| `components/RequestPanel.tsx` | Request form: path params, query string, headers, body; calls `/api/proxy` |
-| `components/ResponsePanel.tsx` | Response display with Body / Headers / cURL tabs |
-| `components/HistoryPanel.tsx` | Slide-out history drawer using shadcn Sheet |
-| `components/SettingsModal.tsx` | Credential input using shadcn Dialog; writes to localStorage |
-| `lib/__tests__/storage.test.ts` | Unit tests for `storage.ts` |
-| `lib/__tests__/parse-spec.test.ts` | Unit tests for `parse-spec.ts` |
-| `lib/__tests__/curl.test.ts` | Unit tests for `curl.ts` |
+| `src/lib/types.ts` | Shared TypeScript types: `Endpoint`, `Parameter`, `RequestBody`, `HistoryEntry`, `ProxyRequest`, `ProxyResponse`, `SpecName` |
+| `src/lib/storage.ts` | localStorage read/write for token, secret, history |
+| `src/lib/parse-spec.ts` | Parse OpenAPI 3.x JSON → `Endpoint[]` |
+| `src/lib/curl.ts` | Generate cURL command string from request params |
+| `src/lib/specs/messaging.json` | LINE Messaging API OpenAPI 3.x spec (downloaded) |
+| `src/lib/specs/login.json` | LINE Login API OpenAPI 3.x spec (downloaded) |
+| `src/app/layout.tsx` | Root layout with font + metadata |
+| `src/app/page.tsx` | Main 3-panel console layout, wires all components, owns shared state |
+| `src/app/api/proxy/route.ts` | Next.js Route Handler that forwards requests to LINE API |
+| `src/components/Sidebar.tsx` | Endpoint list with search, collapsible groups, spec switcher, settings button |
+| `src/components/RequestPanel.tsx` | Request form: path params, query string, headers, body; calls `/api/proxy` |
+| `src/components/ResponsePanel.tsx` | Response display with Body / Headers / cURL tabs |
+| `src/components/HistoryPanel.tsx` | Slide-out history drawer using shadcn Sheet |
+| `src/components/SettingsModal.tsx` | Credential input using shadcn Dialog; writes to localStorage |
+| `src/lib/__tests__/storage.test.ts` | Unit tests for `storage.ts` |
+| `src/lib/__tests__/parse-spec.test.ts` | Unit tests for `parse-spec.ts` |
+| `src/lib/__tests__/curl.test.ts` | Unit tests for `curl.ts` |
 
 ---
 
