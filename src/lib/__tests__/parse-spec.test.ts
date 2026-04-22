@@ -72,4 +72,51 @@ describe('parseSpec', () => {
     const ids = endpoints.map(e => e.id)
     expect(new Set(ids).size).toBe(endpoints.length)
   })
+
+  it('falls back to description when summary is absent', () => {
+    const spec = { paths: { '/v2/bot/info': { get: { description: 'First line\nSecond line', tags: ['Bot'] } } } }
+    const e = parseSpec(spec)[0]
+    expect(e.summary).toBe('First line')
+  })
+
+  it('falls back to path when both summary and description are absent', () => {
+    const spec = { paths: { '/v2/bot/info': { get: { tags: ['Bot'] } } } }
+    const e = parseSpec(spec)[0]
+    expect(e.summary).toBe('/v2/bot/info')
+  })
+
+  it('derives tag from /v2/bot/<resource> when tag is generic', () => {
+    const spec = { paths: { '/v2/bot/richmenu/list': { get: { tags: ['messaging-api'], summary: 'List' } } } }
+    const e = parseSpec(spec)[0]
+    expect(e.tag).toBe('Richmenu')
+  })
+
+  it('derives tag from /bot/<resource> path (no /v2 prefix)', () => {
+    const spec = { paths: { '/bot/pnp/push': { post: { tags: ['messaging-api'], summary: 'Push' } } } }
+    const e = parseSpec(spec)[0]
+    expect(e.tag).toBe('Pnp')
+  })
+
+  it('derives OAuth tag for /oauth2 paths', () => {
+    const spec = { paths: { '/oauth2/v3/token': { post: { tags: ['channel-access-token'], summary: 'Issue token' } } } }
+    const e = parseSpec(spec)[0]
+    expect(e.tag).toBe('OAuth')
+  })
+
+  it('uses "Other" when tags absent and path is unrecognised', () => {
+    const spec = { paths: { '/unknown/path': { get: { summary: 'X' } } } }
+    const e = parseSpec(spec)[0]
+    expect(e.tag).toBe('Other')
+  })
+
+  it('preserves non-generic tag as-is', () => {
+    const spec = { paths: { '/v2/bot/info': { get: { tags: ['CustomTag'], summary: 'Info' } } } }
+    const e = parseSpec(spec)[0]
+    expect(e.tag).toBe('CustomTag')
+  })
+
+  it('skips paths with no matching methods', () => {
+    const spec = { paths: { '/v2/bot/info': {} } }
+    expect(parseSpec(spec)).toHaveLength(0)
+  })
 })

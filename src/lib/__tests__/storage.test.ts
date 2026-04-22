@@ -49,4 +49,8 @@ describe('history', () => {
     clearHistory()
     expect(getHistory()).toEqual([])
   })
+  it('returns empty array when localStorage contains invalid JSON', () => {
+    localStorage.setItem('lac_history', 'not-json')
+    expect(getHistory()).toEqual([])
+  })
 })
