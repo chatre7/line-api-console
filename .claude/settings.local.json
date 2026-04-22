@@ -10,7 +10,8 @@
       "Bash(npx shadcn@latest init --defaults)",
       "Bash(npx shadcn@latest add button input textarea tabs sheet dialog badge scroll-area separator --yes)",
       "Bash(timeout 10 npm run dev)",
-      "Bash(rtk git *)"
+      "Bash(rtk git *)",
+      "Bash(git commit *)"
     ]
   }
 }
